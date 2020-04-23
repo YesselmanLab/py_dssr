@@ -256,3 +256,14 @@ class DSSR_HBOND (object):
         for key, value in kwargs.items():
             setattr(self, key, value)
 
+
+class DSSR_SPLAY_UNITS (object): 
+    def __init__(self, **kwargs):
+        self.index : int = None 
+        self.num_nts : int = None 
+        self.nts_short : str = None 
+        self.nts_long : str = None 
+
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+

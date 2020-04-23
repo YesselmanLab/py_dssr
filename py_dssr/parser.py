@@ -5,7 +5,7 @@ import glob
 import argparse
 import pprint
 
-import dssr
+from py_dssr import dssr
 
 class_str = """
 class {name} (object): 
@@ -49,6 +49,7 @@ def get_attribute_str(attribute_list):
 
 def setup_nt_class(nts_data):
     items = nts_data[0].items()
+    #print(nts_data)
     attrib_str = get_attribute_str(items)
     nt_str = class_str.format(name="DSSR_NT", attributes=attrib_str, args="")
     return nt_str
@@ -84,21 +85,19 @@ def setup_dssr_classes():
     pdb_path = "resources/4p95.pdb"
 
     data = dssr.get_dssr_json_output(exe_path, pdb_path)
-
-    pprint.pprint(data['splayUnits'])
+    #pprint.pprint(data['splayUnits'])
     #print(data['atom2bases'][0])
 
     nt_str = setup_nt_class(data['nts'])
     pair_str = setup_pair_class(data['pairs'])
-    hairpin_str = default_class_setup(data['hairpins'], "DSSR_HAIRPIN")
 
     f = open("dssr_classes.py", "w")
     f.write("from typing import List, Dict\n\n")
     f.write(nt_str + "\n")
     f.write(pair_str + "\n")
 
-    keys = "hairpins,helices,stems,iloops,junctions,ssSegments,kissingLoops,Aminors,riboseZippers,HtypePknots,hbonds".split(",")
-    class_names = "HAIRPIN,HELIX,STEM,ILOOP,JUNCTION,SINGLE_STRAND,KISSING_LOOP,AMINOR,RIBOSE_ZIPPER,PSEUDOKNOT,HBOND".split(",")
+    keys = "hairpins,helices,stems,iloops,junctions,ssSegments,kissingLoops,Aminors,riboseZippers,HtypePknots,hbonds,splayUnits".split(",")
+    class_names = "HAIRPIN,HELIX,STEM,ILOOP,JUNCTION,SINGLE_STRAND,KISSING_LOOP,AMINOR,RIBOSE_ZIPPER,PSEUDOKNOT,HBOND,SPLAY_UNITS".split(",")
 
     for key, class_name in zip(keys,class_names):
         f.write(default_class_setup(data[key],"DSSR_"+class_name) + "\n")
@@ -112,39 +111,18 @@ def setup_dssr_classes():
 
 
 def main():
-    exe_path = "resources/x3dna-dssr "
-    pdb_path = "/Users/josephyesselman/projects/Rosetta.projects/motif_folding/runs/fixed_ends/TWOWAY.1S72.47/S_000001.pdb"
-    #pdb_path = "resources/4p95.pdb"
-
     setup_dssr_classes()
 
-    exit()
+    #exit()
 
-    data = dssr.get_dssr_json_output(exe_path, pdb_path)
+    #dssr_output = dssr.DSSROutput(pdb_path)
+    #nts = dssr_output.get_nts()
+    #pairs = dssr_output.get_pairs()
 
-    #print(data['pairs'])
-
-    nts = {}
-    for nt_info in data['nts']:
-        nt = dssr.DSSR_NT(**nt_info)
-        nts[nt.nt_id] = nt
-
-    for nt in nts.values():
-        print(nt.nt_id, nt.splay_angle, nt.splay_distance)
-
-    pairs = []
-
-    for pair_info in data['pairs']:
-        nt1 = nts[pair_info['nt1']]
-        nt2 = nts[pair_info['nt2']]
-        del pair_info['nt1']
-        del pair_info['nt2']
-        pairs.append(dssr.DSSR_PAIR(nt1, nt2, **pair_info))
-
-    #m = dssr.DSSR_MOTIF(pairs)
+    #for nt in nts.values():
+    #    print(nt.nt_id, nt.splay_angle, nt.splay_distance)
 
 
-    #print(data['refCoords'])
 
 
 
