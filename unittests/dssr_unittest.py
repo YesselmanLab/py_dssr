@@ -1,6 +1,6 @@
 import unittest
 
-from py_dssr import dssr, settings
+from pydssr import dssr, settings
 
 pdb_path = "/Users/josephyesselman/projects/Rosetta.projects/motif_folding/runs/fixed_ends/TWOWAY.1S72.47/S_000001.pdb"
 
