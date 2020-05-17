@@ -1,0 +1,3 @@
+include pydssr/resources/dssr/osx/x3dna-dssr
+include pydssr/resources/dssr/linux/x3dna-dssr
+

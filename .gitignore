@@ -1,2 +1,6 @@
 *.pyc
+build/
+dist/
+*egg*
+*.idea
 py_dssr/__pycache__
