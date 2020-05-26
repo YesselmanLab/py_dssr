@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pydssr',
-    version='0.0.01',
+    version='0.0.02',
     author='Joe Yesselman',
     author_email='jyesselm@unl.edu',
     packages=["pydssr"],

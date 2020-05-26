@@ -5,7 +5,7 @@ import platform
 def get_lib_path():
     file_path = os.path.realpath(__file__)
     spl = file_path.split("/")
-    base_dir = "/".join(spl[:-1])
+    base_dir = "/".join(spl[:-2])
     return base_dir
 
 def get_os():
@@ -20,6 +20,6 @@ def get_os():
 
 class Paths:
     LIB_PATH = get_lib_path()
-    RESOURCES_PATH = LIB_PATH + "/resources/"
-    UNITTEST_PATH = LIB_PATH + "/unittests/"
+    RESOURCES_PATH = LIB_PATH + "/pydssr/resources/"
+    UNITTEST_PATH = LIB_PATH + "/tests/"
     DSSR_EXE = RESOURCES_PATH + "dssr/%s/x3dna-dssr " % (get_os())

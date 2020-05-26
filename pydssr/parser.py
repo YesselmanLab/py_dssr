@@ -81,12 +81,14 @@ def default_class_setup(data, name):
 
 def setup_dssr_classes():
     # get nt members
-    exe_path = "resources/x3dna-dssr "
+    exe_path = "resources/dssr/osx/x3dna-dssr "
     pdb_path = "resources/4p95.pdb"
 
     data = dssr.get_dssr_json_output(exe_path, pdb_path)
     #pprint.pprint(data['splayUnits'])
     #print(data['atom2bases'][0])
+    pprint.pprint(data)
+    exit()
 
     nt_str = setup_nt_class(data['nts'])
     pair_str = setup_pair_class(data['pairs'])
