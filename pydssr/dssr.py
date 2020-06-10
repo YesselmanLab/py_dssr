@@ -114,6 +114,26 @@ class DSSROutput(object):
         return self.__get_attribute(self.__hairpins, "hairpins",
                                     dssr_classes.DSSR_HAIRPIN)
 
+    def get_helices(self) -> List[dssr_classes.DSSR_HELIX]:
+        return self.__get_attribute(self.__helices, "helices",
+                                    dssr_classes.DSSR_HELIX)
+
+    def get_stems(self) -> List[dssr_classes.DSSR_STEM]:
+        return self.__get_attribute(self.__stems, "stems",
+                                    dssr_classes.DSSR_STEM)
+
+    def get_junctions(self) -> List[dssr_classes.DSSR_JUNCTION]:
+        return self.__get_attribute(self.__juctions, "junctions",
+                                    dssr_classes.DSSR_JUNCTION)
+
+    def get_iloops(self) -> List[dssr_classes.DSSR_ILOOP]:
+        return self.__get_attribute(self.__iloops, "iloops",
+                                    dssr_classes.DSSR_ILOOP)
+
+    def get_single_strands(self) -> List[dssr_classes.DSSR_SINGLE_STRAND]:
+        return self.__get_attribute(self.__single_strands, "ssSegments",
+                                    dssr_classes.DSSR_SINGLE_STRAND)
+
 
 
 

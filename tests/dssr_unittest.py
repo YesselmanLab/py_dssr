@@ -38,6 +38,10 @@ class Unittest(unittest.TestCase):
         self.assertTrue(len(hairpins) == 6)
         self.assertTrue(hairpins[0].nts_long == "A.G149,A.G150,A.A151,A.A152,A.A153,A.C154")
 
+    def test_others(self):
+        d_out = dssr.DSSROutput(pdb_path)
+        other = d_out.get_single_strands()
+        print(other[0].nts_long)
 
 
 
