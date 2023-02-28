@@ -72,6 +72,7 @@ def setup_pair_class(pair_data):
 
 
 def default_class_setup(data, name):
+    print(name)
     items = data[0].items()
     attrib_str = get_attribute_str(items)
     nt_str = class_str.format(name=name, attributes=attrib_str, args="")
@@ -82,13 +83,12 @@ def default_class_setup(data, name):
 def setup_dssr_classes():
     # get nt members
     exe_path = "resources/dssr/osx/x3dna-dssr "
-    pdb_path = "resources/4p95.pdb"
+    pdb_path = "3cc2.pdb"
 
     data = dssr.get_dssr_json_output(exe_path, pdb_path)
-    #pprint.pprint(data['splayUnits'])
-    #print(data['atom2bases'][0])
     pprint.pprint(data)
-    exit()
+    #exit()
+    #print(data['atom2bases'][0])
 
     nt_str = setup_nt_class(data['nts'])
     pair_str = setup_pair_class(data['pairs'])
@@ -98,10 +98,11 @@ def setup_dssr_classes():
     f.write(nt_str + "\n")
     f.write(pair_str + "\n")
 
-    keys = "hairpins,helices,stems,iloops,junctions,ssSegments,kissingLoops,Aminors,riboseZippers,HtypePknots,hbonds,splayUnits".split(",")
-    class_names = "HAIRPIN,HELIX,STEM,ILOOP,JUNCTION,SINGLE_STRAND,KISSING_LOOP,AMINOR,RIBOSE_ZIPPER,PSEUDOKNOT,HBOND,SPLAY_UNITS".split(",")
+    keys = "hairpins,helices,stems,iloops,junctions,ssSegments,kissingLoops,Aminors,riboseZippers,HtypePknots,hbonds,splayUnits,bulges".split(",")
+    class_names = "HAIRPIN,HELIX,STEM,ILOOP,JUNCTION,SINGLE_STRAND,KISSING_LOOP,AMINOR,RIBOSE_ZIPPER,PSEUDOKNOT,HBOND,SPLAY_UNITS,BULGE".split(",")
 
     for key, class_name in zip(keys,class_names):
+        print(key, class_name)
         f.write(default_class_setup(data[key],"DSSR_"+class_name) + "\n")
     f.close()
 

@@ -94,7 +94,8 @@ class DSSR_PAIR (object):
 
 class DSSR_HAIRPIN (object): 
     def __init__(self, **kwargs):
-        self.index : int = None 
+        self.mtype = 'HAIRPIN'
+        self.index : int = None
         self.type : str = None 
         self.bridging_nts : list = None 
         self.stem_indices : list = None 
@@ -107,14 +108,17 @@ class DSSR_HAIRPIN (object):
 
         for key, value in kwargs.items():
             setattr(self, key, value)
+        self.nts_long = self.nts_long.split(",")
 
 
 class DSSR_HELIX (object): 
     def __init__(self, **kwargs):
-        self.index : int = None 
+        self.mtype = 'HEXIX'
+        self.index : int = None
         self.num_stems : int = None 
         self.strand1 : str = None 
-        self.strand2 : str = None 
+        self.strand2 : str = None
+        self.nts_long = self.strand1 + "," + self.strand2
         self.bp_type : str = None 
         self.helix_form : str = None 
         self.helical_rise : float = None 
@@ -133,12 +137,12 @@ class DSSR_HELIX (object):
 
 class DSSR_STEM (object): 
     def __init__(self, **kwargs):
+        self.mtype = 'STEM'
         self.index : int = None 
         self.helix_index : int = None 
         self.strand1 : str = None 
-        self.strand2 : str = None 
-        self.bp_type : str = None 
-        self.helix_form : str = None 
+        self.strand2 : str = None
+        self.helix_form : str = None
         self.helical_rise : float = None 
         self.helical_rise_std : float = None 
         self.helical_radius : float = None 
@@ -147,14 +151,22 @@ class DSSR_STEM (object):
         self.point1 : list = None 
         self.point2 : list = None 
         self.num_pairs : int = None 
-        self.pairs : list = None 
+        self.pairs : list = None
+        self.bp_type : str = None
 
         for key, value in kwargs.items():
             setattr(self, key, value)
+
+        nts = []
+        for p in self.pairs:
+            nts.append(p['nt1'])
+            nts.append(p['nt2'])
+        self.nts_long = nts
 
 
 class DSSR_ILOOP (object): 
     def __init__(self, **kwargs):
+        self.mtype = 'ILOOP'
         self.index : int = None 
         self.type : str = None 
         self.bridging_nts : list = None 
@@ -168,10 +180,12 @@ class DSSR_ILOOP (object):
 
         for key, value in kwargs.items():
             setattr(self, key, value)
+        self.nts_long = self.nts_long.split(",")
 
 
 class DSSR_JUNCTION (object): 
     def __init__(self, **kwargs):
+        self.mtype = 'JUNCTION'
         self.index : int = None 
         self.type : str = None 
         self.bridging_nts : list = None 
@@ -185,10 +199,13 @@ class DSSR_JUNCTION (object):
 
         for key, value in kwargs.items():
             setattr(self, key, value)
+        self.nts_long = self.nts_long.split(",")
+
 
 
 class DSSR_SINGLE_STRAND (object): 
     def __init__(self, **kwargs):
+        self.mtype = 'SINGLE_STRAND'
         self.index : int = None 
         self.num_nts : int = None 
         self.nts_short : str = None 
@@ -196,12 +213,14 @@ class DSSR_SINGLE_STRAND (object):
 
         for key, value in kwargs.items():
             setattr(self, key, value)
+        self.nts_long = self.nts_long.split(",")
 
 
 class DSSR_KISSING_LOOP (object): 
     def __init__(self, **kwargs):
         self.index : int = None 
         self.stem_index : int = None 
+        self.is_isoCanonPair = None 
         self.hairpin_indices : list = None 
 
         for key, value in kwargs.items():
@@ -266,4 +285,24 @@ class DSSR_SPLAY_UNITS (object):
 
         for key, value in kwargs.items():
             setattr(self, key, value)
+
+
+class DSSR_BULGE (object): 
+    def __init__(self, **kwargs):
+        self.mtype = 'BULGE'
+        self.index : int = None 
+        self.type : str = None 
+        self.bridging_nts : list = None 
+        self.stem_indices : list = None 
+        self.summary : str = None 
+        self.num_nts : int = None 
+        self.nts_short : str = None 
+        self.nts_long : str = None 
+        self.num_stems : int = None 
+        self.bridges : list = None 
+
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+        self.nts_long = self.nts_long.split(",")
+
 

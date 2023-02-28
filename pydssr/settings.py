@@ -21,5 +21,5 @@ def get_os():
 class Paths:
     LIB_PATH = get_lib_path()
     RESOURCES_PATH = LIB_PATH + "/pydssr/resources/"
-    UNITTEST_PATH = LIB_PATH + "/tests/"
+    UNITTEST_PATH = LIB_PATH + "/test/"
     DSSR_EXE = RESOURCES_PATH + "dssr/%s/x3dna-dssr " % (get_os())
